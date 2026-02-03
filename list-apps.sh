@@ -17,9 +17,21 @@ for file in /usr/share/applications/*.desktop ~/.local/share/applications/*.desk
     done
 done
 
+total=0
+
 # Sort categories first, then apps inside each category
 for category in $(printf "%s\n" "${!apps[@]}" | sort); do
-    printf "\033[1;34m=== %s ===\033[0m\n" "$category"
+    # Count apps in this category (remove duplicates first)
+    count=$(echo -e "${apps[$category]}" | sort | uniq | wc -l)
+    total=$((total + count))
+
+    # Print category header with count in bold blue
+    printf "\033[1;34m=== %s (%d apps) ===\033[0m\n" "$category" "$count"
+
+    # Print app names sorted alphabetically, no duplicates
     echo -e "${apps[$category]}" | sort | uniq
     echo
 done
+
+# Print grand total at the end
+printf "\033[1;32mTotal applications across all categories: %d\033[0m\n" "$total"
