@@ -1,0 +1,4 @@
+
+$ dconf read /org/gnome/Ptyxis/default-profile-uuid
+'520e77fed7b0f9d0b94483db69790a83'
+$ dconf write /org/gnome/Ptyxis/Profiles/520e77fed7b0f9d0b94483db69790a83/opacity 0.8
